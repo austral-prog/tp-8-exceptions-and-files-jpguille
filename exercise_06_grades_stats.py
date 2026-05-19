@@ -34,4 +34,26 @@ def grades_stats(filename):
             "Cami": (10.0, 10.0, 10.0),
         }
     """
-    pass  # Reemplazar con tu implementación
+
+    new = {}
+    with open(filename, 'r') as archivo:
+        for fila in archivo:
+            if fila.strip() != "":
+                fila = fila.split(':')
+                estudiante = fila[0]
+                notas = fila[1]
+                max = float('-inf')
+                min = float('inf')
+                suma = 0
+                cont = 0
+                for nota in notas.split(','):
+                    nota = float(nota)
+                    if nota > max:
+                        max = nota
+                    if nota < min:
+                        min = nota
+                    suma += nota
+                    cont += 1
+                avg = suma/cont
+                new[str(estudiante)] = (avg, max, min)
+        return new
